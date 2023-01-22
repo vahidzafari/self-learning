@@ -21,6 +21,8 @@ contract Receiver {
         emit Received(msg.sender, msg.value, "Fallback was called");
     }
 
+    receive() external payable {}
+
     function foo(
         string memory _message,
         uint _x
