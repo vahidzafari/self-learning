@@ -17,6 +17,8 @@ contract HashFunction {
         uint _num,
         address _addr
     ) public pure returns (bytes32) {
+        // abi.encodePacked performs packed encoding of the given arguments. Arguments can be of any type.
+        // It returns the packed encoding of the data as bytes.
         return keccak256(abi.encodePacked(_text, _num, _addr));
     }
 

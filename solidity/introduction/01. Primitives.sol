@@ -47,6 +47,14 @@ contract Introduction {
     bytes1 a = 0xb5; //  [10110101]
     bytes1 b = 0x56; //  [01010110]
 
+    // Supported units for time
+    bool isOneSecond = 1 == 1 second;
+    bool isOneMinute = 1 minute == 60 seconds;
+    bool isOneHour = 1 hour == 60 minutes;
+    bool isOneDay = 1 day == 24 hours;
+    bool isOneWeek = 1 week == 7 days;
+    bool isOneYear = 1 year == 365 days;
+
     // Default values
     // Unassigned variables have a default value
     bool public defaultBoo; // false

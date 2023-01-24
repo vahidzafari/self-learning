@@ -6,11 +6,27 @@ Functions and state variables have to declare whether they are accessible by oth
 
 Functions can be declared as
 
-public - any contract and account can call
-private - only inside the contract that defines the function
-internal- only inside contract that inherits an internal function
-external - only other contracts and accounts can call
-State variables can be declared as public, private, or internal but not external.
+public:
+A function defined as public is accessible from both inside and outside of the contract. 
+Solidity generates a getter function for public state variables, and these are also 
+accessible from outside of the contract via these getter functions.
+
+
+external: 
+A function defined as external is only accessible from outside of the contract. 
+Internally, the function will not be accessible directly. To access an external 
+function within the same contract, you would have to call this.functionName(). 
+For state variables, you cannot use the external keyword.
+
+internal: 
+A function or variable defined as internal is only accessible internally within 
+the contract. Also, if Contract X inherits from Contract Y, which has internal functions 
+or variables, Contract X can access all of Contract Y's internal functions and variables. 
+When no visibility is specified, the variable would, by default, take internal visibility.
+
+private: 
+A function or variable defined as private is only accessible internally within the same 
+contract. A private variable or function is not accessible in derived contracts.
 */
 
 contract Base {

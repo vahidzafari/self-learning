@@ -19,6 +19,8 @@ contract AbiEncode {
         address to,
         uint amount
     ) external pure returns (bytes memory) {
+        // ABI encodes the given arguments. The first argument takes a function selector and
+        // from the second onward it takes any data type. It returns the encoded data as bytes.
         // Typo is not checked - "transfer(address, uint)"
         return abi.encodeWithSignature("transfer(address,uint256)", to, amount);
     }
