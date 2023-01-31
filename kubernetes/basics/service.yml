@@ -1,0 +1,33 @@
+# Service
+
+# A service is the ligical bridge between the mortal pods and other services or end-users
+# Creating a service will create an endpoint for your pod(s):
+# - ClusterIP: A virtual address only reachable from within the cluster (default)
+# - NodePort: A port thst id the same on each node that is also reachable externally
+# - LoadBalancer: A LoadBalancer created by the cloud provider that will route external
+# traffic to every node on the NodePort (ELB on AWS)
+
+# There is also a possibility to use DNS names
+# - ExternalName can provide a DNS name for the service (e.g. for service discovery using DNS)
+# - This only works when the DNS add-on is enabled
+
+#### Useful Commands ####
+# kubectl get pods
+# kubectl get service
+# kubectl describe service <service-name>
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: <service-name>
+spec:
+  # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+  type: NodePort
+  selector:
+    app: <pod-name>
+  ports:
+    # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+    - port: <service-port>
+      targetPort: <port-name|container-port>
+      protocol: <tcp|udp>
+      nodePort: 31001 # Choosing your own port

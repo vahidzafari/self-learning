@@ -1,0 +1,26 @@
+# Label
+
+# Labels are key/value pairs that can be attached to objects
+# You can label your object, for instance your pod, following an organizational structure
+# - key: environment - value: dev/staging/qa/prod
+# - key: department - value: engineering/finance/marketing
+
+# Using Label Selectors, you can use matching expressions to match labels (e.g. env=development)
+
+# Node Labels
+# There are 2 steps required to run a pod on a specific set of nodes:
+# - First you tag the node
+# - Then you add a nodeSelector to your pod configuration
+
+#### Useful Commands ####
+# kubectl get nodes --show-labels
+# kubectl label nodes <node-name> <key>=<value>
+
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: <deployment-name>
+spec:
+  nodeSelector:
+    <key>: <value>
+  # ...

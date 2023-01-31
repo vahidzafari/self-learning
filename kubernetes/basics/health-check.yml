@@ -1,0 +1,36 @@
+# Health Check
+
+# LivenessProbes
+# Indicates whether a container is running, If the check fails, the container will be restarted
+
+# To detect and resolve problems with your application, you can run health check
+# - Running a command in the container periodically
+# - Periodic chechs on a URL (http)
+
+# The typical production application behind a load balancer should always have health
+# checks implemented in some wau to ensure availability and resiliency of the application
+
+# ReadinessProbes
+# Indicates whether the container is ready to serve requests, If the check fails, the container
+# will not be restarted, but the Pod's IP address will be removed from the service, So it'll not
+# serve any requests anymore
+
+spec:
+  containers:
+    - name: <container-name>
+      image: <docker-image>
+      ports:
+        - containerPort: <container-port>
+          name: <port-name>
+      livenessProbe:
+        httpGet:
+          path: /
+          port: <pod-port>
+        initialDelaySeconds: 15
+        timeoutSeconds: 30
+      readinessProbe:
+        httpGet:
+          path: /
+          port: <pod-port>
+        initialDelaySeconds: 15
+        timeoutSeconds: 30

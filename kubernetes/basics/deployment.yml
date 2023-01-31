@@ -1,0 +1,46 @@
+# Deployment
+
+# Replica Set is the next-generation Replication COntroller
+# It support a new selector that can do selection based n filtering according a set of values
+
+# When using the deployment object, you define the state of your application
+# With a deployment object you containers:
+# - create a deployment (deploying an app)
+# - update a deployment (deploying a new version)
+# - do rolling updates (zero downtime deployments)
+# - Roll back to a previous version
+# - Pause/Resume a deployment (to roll-out to only a certain percentage)
+
+#### Useful Commands ####
+# kubectl create -f deployment.yml
+# kubectl get pods
+# kubectl get pods --show-labels
+# kubectl get deployments
+# kubectl get rs # replica set
+# kubectl rollout status deployment/<deployment-name>
+# kubectl rollout history deployment/<deployment-name>
+# kubectl rollout undo deployment/<deployment-name>
+# kubectl rollout undo deployment/<deployment-name> --to-revision=n
+# kubectl set image deployment/<deployment-name> <container-name>=<docker-image>:<version>
+# kubectl edit deployment/<deployment-name>
+# kubectl expose deployment <deployment-name> --type=NodePort
+# kubectl get service
+# kubectl describe service <deployment-name>
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: <deployment-name>
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: <template-name>
+    spec:
+      containers:
+        - name: <container-name>
+          image: <docker-image>
+          ports:
+            - containerPort: <container-port>
+              name: <port-name>

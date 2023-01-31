@@ -1,0 +1,30 @@
+# Replication Controller
+
+# The replication controller will ensure a specified number of pod replicas will run at all time.
+# A pods created with replica controller will automatically be replaces if they fail, get deleted, are terminated.
+# Using the replicatin controller is also recommended if you just want to make sure 1 pod is always running, even after reboots.
+
+#### Useful Commands ####
+# kubectl get pods
+# kubectl get rc
+# kubectl scale --replicas=1 rc/<controller-name>
+# kubectl delete --replicas=1 rc/<controller-name>
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: <controller-name>
+spec:
+  replicas: 2
+  selector:
+    app: <template-name>
+  template:
+    metadata:
+      labels:
+        app: <template-name>
+    spec:
+      containers:
+        - name: <container-name>
+          image: <docker-image>
+          ports:
+            - containerPort: <3000>

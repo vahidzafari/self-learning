@@ -1,0 +1,59 @@
+# Pod
+
+# States of a Pod and Container
+# - Running: pod has been bound to a node, All containers have been created, At least one
+# container is still running, or is starting/restarting
+# - Pending: pod has been accepted but os not running, When the container image is still downloading,
+# or if the pod cannot be scheduled because of resource constraints
+# - Succeeded: All containers within this pod have been terminated successfully and will not be restarted
+# - Failed: All containers code is the exit code of the process when a container terminated
+# - Unknown: The state of the pod couldn't be determined, A network error might have been occured
+
+# Pod Conditions
+# PodScheduled: the Pod has been scheduled to a node.
+# PodHasNetwork: (alpha feature; must be enabled explicitly) the Pod sandbox has been successfully created and networking configured.
+# ContainersReady: all containers in the Pod are ready.
+# Initialized: all init containers have completed successfully.
+# Ready: the Pod is able to serve requests and should be added to the load balancing pools of all matching Services.
+
+#### Useful Commands ####
+# kubectl describe pod <pod-name>
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: <deployment-name>
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: <template-name>
+    spec:
+      initContainers:
+        - name: <init-name>
+          image: <image-name>
+          command: ["sh", "-c", "sleep 10"]
+      containers:
+        - name: <container-name>
+          image: <docker-image>
+          ports:
+            - containerPort: <container-port>
+              name: <port-name>
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  [
+                    "/bin/sh",
+                    "-c",
+                    "echo Hello from the postStart handler > /usr/share/message",
+                  ]
+            preStop:
+              exec:
+                command:
+                  [
+                    "/bin/sh",
+                    "-c",
+                    "nginx -s quit; while killall -0 nginx; do sleep 1; done",
+                  ]
