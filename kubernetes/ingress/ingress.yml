@@ -1,0 +1,31 @@
+# Ingress
+
+# Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster.
+# Traffic routing is controlled by rules defined on the Ingress resource.
+# It's an alternative to the external LoadBalancer and nodePorts
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: foo
+  namespace: production
+
+spec:
+  rules:
+    - host: example.net
+      http:
+        paths:
+          - path: /bar
+            pathType: Exact
+            backend:
+              service:
+                name: service1
+                port:
+                  number: 80
+          - path: /foo
+            pathType: Exact
+            backend:
+              service:
+                name: service1
+                port:
+                  number: 80

@@ -1,0 +1,46 @@
+# ConfigMap
+
+# Configuration parameters that are not secret, can be put in a ConfigMap.
+# The ConfigMap key-value pairs can then be read by the app using:
+# - Environment variables
+# - Container commandline arguments in the pod Configuration
+# - Using volumes
+
+#### Useful Commands ####
+# kubectl create configmap <config-name> --from-file=<filename>
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: <config-name>
+data:
+  test-key: test-value
+
+# Pod configuration
+spec:
+  containers:
+    - name: demo
+      image: alpine
+      command: ["sleep", "3600"]
+      env:
+        # Define the environment variable
+        - name: TEST_KEY # Notice that the case is different here
+          # from the key name in the ConfigMap.
+          valueFrom:
+            configMapKeyRef:
+              name: <config-name> # The ConfigMap this value comes from.
+              key: test-key # The key to fetch.
+      volumeMounts:
+        - name: <config-name>
+          mountPath: "/config"
+          readOnly: true
+  volumes:
+    # You set volumes at the Pod level, then mount them into containers inside that Pod
+    - name: config
+      configMap:
+        # Provide the name of the ConfigMap you want to mount.
+        name: <config-name>
+        # An array of keys from the ConfigMap to create as files
+        items:
+          - key: "test-key"
+            path: "test-key"
