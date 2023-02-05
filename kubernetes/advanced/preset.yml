@@ -1,0 +1,23 @@
+# Preset
+
+# Pod preset can inject information into pods at runtime
+# Pod presets are used to inject kubernetes resources like secrets,
+# configmap, volumes and variable environment
+
+apiVersion: settings.k8s.io/v1alpha1
+kind: PodPreset
+metadata:
+  name: share-credential
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  env:
+    - name: MY_SECRET
+      value: "123456"
+  volumeMounts:
+    - mountPath: /share
+      name: share-volume
+  volumes:
+    - name: share-volume
+      emptyDir: {}

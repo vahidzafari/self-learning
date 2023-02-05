@@ -1,0 +1,44 @@
+# Stateful Sets
+
+# Statefulsets allow stateful apps stable storage with volumes based on their ordinal numbers (podname-x)
+# Deleting and/or scaling a StatefulSetdown will not delete the volumes associated with the StatefulSet (preserving data)
+# A StatefulSet will allow your stateful app to use DNs to find other peers (e.g. cassandra-0.cassandra)
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: cassandra
+  labels:
+    app: cassandra
+spec:
+  serviceName: cassandra
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cassandra
+  template:
+    metadata:
+      labels:
+        app: cassandra
+    spec:
+      terminationGracePeriodSeconds: 1800
+      containers:
+        - name: cassandra
+          image: gcr.io/google-sample/cassandra:v13
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 7000
+              name: infra-node
+            - containerPort: 7001
+              name: tls-infra-node
+            - containerPort: 7199
+              name: jmx
+            - containerPort: 9042
+              name: cql
+          resources:
+            limits:
+              cpu: "500m"
+              memory: 1Gi
+          env:
+            - name: CASSANDRA_SEED
+              value: "cassandra-0.cassandra.default.svc.cluster.local"
