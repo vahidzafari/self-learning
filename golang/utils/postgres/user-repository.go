@@ -1,4 +1,4 @@
-package post05
+package user_repository
 
 import (
 	"database/sql"
@@ -9,7 +9,15 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// Connection details
+/*
+This block of global variables holds the connection details to the
+Postgres server
+Hostname: is the IP or the hostname of the server
+Port: is the TCP port the DB server listens to
+Username: is the username of the database user
+Password: is the password of the database user
+Database: is the name of the Database in PostgreSQL
+*/
 var (
 	Hostname = ""
 	Port     = 2345
@@ -18,8 +26,9 @@ var (
 	Database = ""
 )
 
-// Userdata is for holding full user data
-// Userdata table + Username
+// The Userdata structure is for holding full user data
+// from the Userdata table and the Username from the
+// Users table
 type Userdata struct {
 	ID          int
 	Username    string
@@ -28,6 +37,8 @@ type Userdata struct {
 	Description string
 }
 
+// openConnection() is for opening the Postgres connection
+// in order to be used by the other functions of the package.
 func openConnection() (*sql.DB, error) {
 	// connection string
 	conn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",

@@ -1,0 +1,27 @@
+image: golang:1.19
+
+stages:
+  - download
+  - execute
+
+compile:
+  stage: download
+  script:
+    - echo "---------- Getting System Info ----------"
+    - uname -a
+    - mkdir bin
+    - go version
+    - echo "---------- Downloading Dependecies ----------"
+    - go get -v -d ./... # The Go way of downloading all the package dependencies of a project
+    - echo "---------- Building Package or Module ----------"
+    - go build -o ./bin/output hello-world.go
+  artifacts:
+    paths:
+      - bin/
+
+execute:
+  stage: execute
+  script:
+    - echo "---------- Executing Hello World! ----------"
+    - ls -l bin
+    - ./bin/output
