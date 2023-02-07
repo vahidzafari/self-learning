@@ -12,6 +12,8 @@ import (
 // var <identifier> <type>;
 // var <identifier> = <value>;
 // var <identifier> <type> = <value>;
+// var <name1>, <name2>,….<nameN> <type>
+// var <name1>, <name2>, …..,<nameN> <type> = <value1>, <value2>, …..,<valueN>
 
 // if no initial value is given to a variable, the Go compiler will automatically initialize
 // that variable to the zero value of its data type.
@@ -30,4 +32,8 @@ var AnotherGlobal = -5678
 func main() {
 	i := Global + AnotherGlobal
 	fmt.Printf("Global=%d, i=%d\n", Global, i)
+
+	var aaa, bbb int
+	fmt.Println("aaa", aaa)
+	fmt.Println("bbb", bbb)
 }

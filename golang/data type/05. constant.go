@@ -3,15 +3,21 @@ package main
 import "fmt"
 
 // Go supports constants, which are variables that cannot change their values.
+// In Go const can be either of type string, numeric, boolean, and characters.
 // Constants in Go are defined with the help of the const keyword. Generally speaking,
 // constants can be either global or local variables. The main benefit you get from using
 // constants in your programs is the guarantee that their value will not change during
 // program execution. Strictly speaking, the value of a constant variable is defined at
 // compile time, not at runtime—this means that it is included in the binary executable.
+// A constant declared within an inner having a same name as constant declared in the outer
+// scope will shadow the constant in outer scope.
+
+// const <identifier> <type> = <value>;
 
 type Digit int
 type Power2 int
 
+const GLOBAL = 123
 const PI = 3.1415926
 const (
 	C1 = "C1C1C1"
@@ -44,4 +50,8 @@ func main() {
 	fmt.Println("2^2:", p2_2)
 	fmt.Println("2^4:", p2_4)
 	fmt.Println("2^6:", p2_6)
+
+	fmt.Println("GLOBAL:", GLOBAL)
+	const GLOBAL = 456
+	fmt.Println("GLOBAL:", GLOBAL)
 }

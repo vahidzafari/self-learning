@@ -23,6 +23,12 @@ import (
 // get from switch is that when used properly, it simplifies complex and hard-to-read
 // if-else blocks.
 
+// Both switch statement and switch expression are optional statement. So four possible scenario exist for them
+
+// switch statement; expression {
+// 	...
+// }
+
 func main() {
 	if len(os.Args) != 2 {
 		fmt.Println("Please provide a command line argument")

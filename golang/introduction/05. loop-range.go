@@ -13,6 +13,17 @@ import "fmt"
 // keyword. When used with range, for loops allow you to visit all the elements of a
 // slice or an array without knowing the size of the data structure.
 
+// for init_part; condition_part; post_part {
+// 	...
+// }
+
+// Here is the sequence of execution of the three parts:
+// - The init part is executed first before the first iteration
+// - The condition part is executed before every iteration. If the condition is false the loop
+// will exit otherwise the loop will continue to iterate.
+// - The post part is executed after every iteration. After this the condition is check, if it
+// is true then the loop is continued otherwise loop exists.
+
 func main() {
 	// Traditional for loop
 	for i := 0; i < 10; i++ {
