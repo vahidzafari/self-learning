@@ -44,7 +44,7 @@ func (iheap *IntegerHeap) Pop() interface{} {
 }
 
 func main() {
-	var intHeap *IntegerHeap = &IntegerHeap{1, 4, 5}
+	var intHeap *IntegerHeap = &IntegerHeap{1, 4, 5, 3, 6, 7, 8}
 	heap.Init(intHeap)
 	heap.Push(intHeap, 2)
 	fmt.Printf("minimum: %d\n", (*intHeap)[0])
