@@ -16,4 +16,8 @@ The advantages of gRPC include the following:
 
 A protocol buffer (protobuf) is basically a method for serializing structured data. A part of protobuf is the IDL. As protobuf uses binary format for data exchange, it takes up less space than plain text serialization formats.
 
-### Defining an interface definition language file
+Use the following command to generate
+
+```bash
+protoc --go_out=plugins=grpc:. protoapi.proto
+```
